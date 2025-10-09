@@ -2,6 +2,7 @@ import type { Server } from "http";
 import { app } from "./app";
 import envVariables from "./config/env";
 import { prisma } from "./config/db";
+import { seedUser } from "./app/utils/SeedUser";
 
 let server: Server;
 
@@ -16,20 +17,21 @@ async function connectToDb() {
   }
 }
 
-async function main() {
+async function startServer() {
   try {
     await connectToDb();
-    server = app.listen(envVariables.PORT, () => {
+    server = await app.listen(envVariables.PORT, () => {
       // eslint-disable-next-line no-console
       console.log(`Server is running on port ${envVariables.PORT}`);
     });
+    await seedUser();
   } catch (error) {
     // eslint-disable-next-line no-console
     console.log(error);
   }
 }
 
-main();
+startServer();
 
 //  handle graceful shutdown SIGTERM
 process.on("SIGTERM", () => {

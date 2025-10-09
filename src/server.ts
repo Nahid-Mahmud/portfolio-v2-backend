@@ -1,19 +1,19 @@
+/* eslint-disable no-restricted-syntax */
 import type { Server } from "http";
 import { app } from "./app";
 import envVariables from "./config/env";
 import { prisma } from "./config/db";
 import { seedUser } from "./app/utils/SeedUser";
+import logger from "./app/utils/chalk";
 
 let server: Server;
 
 async function connectToDb() {
   try {
     await prisma.$connect();
-    // eslint-disable-next-line no-console
-    console.log("Database connected successfully");
+    logger.success("Database connected successfully");
   } catch (error) {
-    // eslint-disable-next-line no-console
-    console.log("Database connection error:", error);
+    logger.error(`Database connection error: ${error}`);
   }
 }
 
@@ -21,13 +21,11 @@ async function startServer() {
   try {
     await connectToDb();
     server = await app.listen(envVariables.PORT, () => {
-      // eslint-disable-next-line no-console
-      console.log(`Server is running on port ${envVariables.PORT}`);
+      logger.success(`Server is running on port ${envVariables.PORT}`);
     });
     await seedUser();
   } catch (error) {
-    // eslint-disable-next-line no-console
-    console.log(error);
+    logger.error(error);
   }
 }
 
@@ -39,8 +37,7 @@ process.on("SIGTERM", () => {
   console.log("SIGTERM signal received: closing HTTP server");
   if (server) {
     server.close(() => {
-      // eslint-disable-next-line no-console
-      console.log("HTTP server closed");
+      logger.error("HTTP server closed");
     });
   }
 });
@@ -59,8 +56,7 @@ process.on("SIGINT", () => {
 
 // handle unhandledRejection
 process.on("unhandledRejection", (reason, promise) => {
-  // eslint-disable-next-line no-console
-  console.log("Unhandled Rejection at:", promise, "reason:", reason);
+  logger.error("Unhandled Rejection at:", promise, "reason:", reason);
   if (server) {
     server.close(() => {
       process.exit(1);
@@ -72,8 +68,7 @@ process.on("unhandledRejection", (reason, promise) => {
 
 //  handle uncaughtException
 process.on("uncaughtException", (error) => {
-  // eslint-disable-next-line no-console
-  console.log("Uncaught Exception:", error);
+  logger.error("Uncaught Exception:", error);
   if (server) {
     server.close(() => {
       process.exit(1);

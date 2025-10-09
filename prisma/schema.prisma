@@ -12,3 +12,47 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+enum Category {
+  FullStack
+  Frontend
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  firstName String
+  lastName  String
+  password  String
+  bio       String?  @db.Text
+  Blog      Blog[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Blog {
+  id        String   @id @default(uuid())
+  title     String
+  content   String   @db.Text
+  photo     String
+  authorId  String
+  author    User     @relation(fields: [authorId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Projects {
+  id               String   @id @default(uuid())
+  title            String
+  shortDescription String   @db.Text
+  projectDetails   String   @db.Text
+  liveLink         String
+  frontendLink     String
+  backendLink      String?
+  photo            String
+  video            String?
+  category         Category @default(FullStack)
+  technologies     String[]
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}

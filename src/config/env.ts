@@ -6,10 +6,11 @@ interface EnvVariables {
   DATABASE_URL: string;
   PORT: string;
   NODE_ENV: string;
+  ACCESS_TOKEN_JWT_SECRET: string;
 }
 
 const loadEnvVariable = (): EnvVariables => {
-  const requiredEnvVariables = ["DATABASE_URL", "PORT", "NODE_ENV"];
+  const requiredEnvVariables = ["DATABASE_URL", "PORT", "NODE_ENV", "ACCESS_TOKEN_JWT_SECRET"];
 
   requiredEnvVariables.forEach((key) => {
     if (!process.env[key]) {
@@ -21,6 +22,7 @@ const loadEnvVariable = (): EnvVariables => {
     DATABASE_URL: process.env.DATABASE_URL as string,
     PORT: process.env.PORT as string,
     NODE_ENV: process.env.NODE_ENV as string,
+    ACCESS_TOKEN_JWT_SECRET: process.env.ACCESS_TOKEN_JWT_SECRET as string,
   };
 };
 

@@ -1,16 +1,16 @@
-import { Prisma } from "@prisma/client";
-import type { NextFunction, Request, Response } from "express";
+import type { Request, Response, NextFunction } from "express";
 import { StatusCodes } from "http-status-codes";
 import { ZodError } from "zod";
-import ApiError from "../../errors/ApiError.js";
-import { handleClientError } from "../../errors/handleClientError.js";
-import { handleValidationError } from "../../errors/handleValidationError.js";
-import { handleZodError } from "../../errors/handleZodError.js";
-import type { TErrorSources } from "../../interfaces/error.types.js";
-import envVariables from "../../config/env.js";
+import { Prisma } from "@prisma/client";
+import ApiError from "../../errors/ApiError";
+import { handleClientError } from "../../errors/handleClientError";
+import { handleValidationError } from "../../errors/handleValidationError";
+import { handleZodError } from "../../errors/handleZodError";
+import type { TErrorSources } from "../../app/interfaces/error.types";
+import envVariables from "../../config/env";
 
 // Re-export ApiError for convenience
-export { default as ApiError } from "../../errors/ApiError.js";
+export { default as ApiError } from "../../errors/ApiError";
 
 const globalErrorHandler = (
   error: Error & { statusCode?: number; name?: string },

@@ -3,8 +3,8 @@ import cors, { type CorsOptions } from "cors";
 import cookieParser from "cookie-parser";
 import expressSession from "express-session";
 import morgan from "morgan";
-import notFound from "./app/middlewares/notFound.js";
-import globalErrorHandler from "./app/middlewares/globalErrorHandler.js";
+import globalErrorHandler from "./app/middlewares/globalErrorHandler";
+import notFound from "./app/middlewares/notFound";
 
 export const app: Application = express();
 

@@ -1,9 +1,11 @@
-/* eslint-disable no-console */
+/* eslint-disable no-restricted-syntax */
 //  seed user
 
 import bcrypt from "bcryptjs";
 import envVariables from "../../config/env";
 import { prisma } from "../../config/db";
+import logger from "./chalk";
+
 // Update the import path to match the actual location and filename of your User model
 
 export const seedUser = async () => {
@@ -19,7 +21,7 @@ export const seedUser = async () => {
   });
 
   if (existingUser) {
-    console.warn("Seed User already Exist in DB ");
+    logger.warning("Seed User already Exist in DB ");
     return;
   }
 
@@ -34,9 +36,8 @@ export const seedUser = async () => {
         lastName,
       },
     });
-    console.info("Seed User created successfully");
+    logger.success("Seed User created successfully");
   } catch (error) {
-    //
-    console.error(error);
+    logger.error(`Error creating seed user: ${error}`);
   }
 };

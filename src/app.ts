@@ -5,6 +5,7 @@ import expressSession from "express-session";
 import morgan from "morgan";
 import globalErrorHandler from "./app/middlewares/globalErrorHandler";
 import notFound from "./app/middlewares/notFound";
+import { router } from "./app/routes";
 
 export const app: Application = express();
 
@@ -41,6 +42,8 @@ app.get("/api/v1", (req: Request, res: Response) => {
     status: "success",
   });
 });
+
+app.use("/api/v1", router);
 
 app.use(globalErrorHandler);
 app.use(notFound);

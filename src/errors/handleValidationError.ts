@@ -1,5 +1,5 @@
 import { Prisma } from "@prisma/client";
-import type { TGenericErrorResponse } from "../app/interfaces/error.types";
+import type { TGenericErrorResponse } from "../interfaces/error.types";
 
 export const handleValidationError = (error: Prisma.PrismaClientValidationError): TGenericErrorResponse => {
   const errorSources = [

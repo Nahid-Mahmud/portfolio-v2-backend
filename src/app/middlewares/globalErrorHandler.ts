@@ -6,7 +6,7 @@ import ApiError from "../../errors/ApiError";
 import { handleClientError } from "../../errors/handleClientError";
 import { handleValidationError } from "../../errors/handleValidationError";
 import { handleZodError } from "../../errors/handleZodError";
-import type { TErrorSources } from "../../app/interfaces/error.types";
+import type { TErrorSources } from "../../interfaces/error.types";
 import envVariables from "../../config/env";
 
 // Re-export ApiError for convenience

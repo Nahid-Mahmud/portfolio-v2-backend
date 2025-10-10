@@ -68,23 +68,7 @@ const forgetPassword = async (email: string) => {
 };
 
 const resetPassword = async (token: string, newPassword: string) => {
-  if (!token || !token.trim()) {
-    throw new AppError(StatusCodes.BAD_REQUEST, "Reset token is required");
-  }
-
-  if (!newPassword || !newPassword.trim()) {
-    throw new AppError(StatusCodes.BAD_REQUEST, "New password is required");
-  }
-
-  // Password strength validation
-  if (newPassword.length < 6) {
-    throw new AppError(StatusCodes.BAD_REQUEST, "Password must be at least 6 characters long");
-  }
-
   const jwtSecret = envVariables.JWT.FORGET_PASSWORD_TOKEN_JWT_SECRET;
-  if (!jwtSecret) {
-    throw new AppError(StatusCodes.INTERNAL_SERVER_ERROR, "Server configuration error");
-  }
 
   let decoded: { email: string; id: string };
   try {

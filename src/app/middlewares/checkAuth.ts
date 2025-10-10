@@ -4,7 +4,7 @@ import { StatusCodes } from "http-status-codes";
 import { verifyJwtToken } from "../utils/jwt";
 import envVariables from "../../config/env";
 
-export const checkAuth = () => async (req: Request, res: Response, next: NextFunction) => {
+export const checkAuth = () => async (req: Request, _res: Response, next: NextFunction) => {
   try {
     const accessToken = req.headers.authorization || req.cookies.accessToken;
     if (!accessToken) {

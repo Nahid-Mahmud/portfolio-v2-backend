@@ -1,12 +1,11 @@
 import { StatusCodes } from "http-status-codes";
 
-import { generateJwtToken, verifyJwtToken } from "./jwt";
+import { prisma } from "../../config/db";
 import envVariables from "../../config/env";
 import AppError from "../../errors/AppError";
-import { User } from "@prisma/client";
-import { prisma } from "../../config/db";
+import { generateJwtToken, verifyJwtToken } from "./jwt";
 
-export const generateAuthTokens = (user: Partial<User> & { _id?: string }) => {
+export const generateAuthTokens = (user: { id: string; email: string }) => {
   const jwtPayload = {
     id: user.id,
     email: user.email,

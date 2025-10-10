@@ -27,7 +27,7 @@ const forgetPassword = catchAsync(async (req, res) => {
   sendResponse(res, {
     success: true,
     message: result.message,
-    data: {},
+    data: result,
     statusCode: 200,
   });
 });
@@ -39,7 +39,7 @@ const resetPassword = catchAsync(async (req, res) => {
   sendResponse(res, {
     success: true,
     message: result.message,
-    data: {},
+    data: result,
     statusCode: 200,
   });
 });

@@ -15,6 +15,9 @@ const login = async (email: string, password: string) => {
 
   const user = await prisma.user.findUnique({
     where: { email: email.toLowerCase() },
+    omit: {
+      password: false,
+    },
   });
 
   if (!user) {

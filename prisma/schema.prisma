@@ -50,6 +50,7 @@ model Blog {
   content    String       @db.Text
   photo      String
   altText    String
+  slug       String
   authorId   String
   author     User         @relation(fields: [authorId], references: [id])
   categoryId String

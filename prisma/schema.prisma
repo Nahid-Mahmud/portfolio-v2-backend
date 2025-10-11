@@ -56,3 +56,11 @@ model Projects {
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt
 }
+
+model Gallery {
+  id        String   @id @default(uuid())
+  photo     String
+  altText   String 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

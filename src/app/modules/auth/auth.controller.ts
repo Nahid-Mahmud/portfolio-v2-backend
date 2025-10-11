@@ -10,7 +10,7 @@ const login = catchAsync(async (req, res) => {
   const { accessToken, refreshToken } = generateAuthTokens({ id: result.id, email: result.email });
 
   res.cookie("refreshToken", refreshToken, { httpOnly: true });
-  res.cookie("accessToken", refreshToken, { httpOnly: true });
+  res.cookie("accessToken", accessToken, { httpOnly: true });
 
   sendResponse(res, {
     success: true,

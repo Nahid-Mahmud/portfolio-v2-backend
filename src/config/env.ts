@@ -28,6 +28,17 @@ interface EnvVariables {
     PORT: string;
     FROM: string;
   };
+  CLOUDINARY: {
+    CLOUDINARY_CLOUD_NAME: string;
+    CLOUDINARY_API_KEY: string;
+    CLOUDINARY_API_SECRET: string;
+  };
+  REDIS: {
+    HOST: string;
+    PORT: string;
+    USERNAME: string;
+    PASSWORD: string;
+  };
 }
 
 const loadEnvVariable = (): EnvVariables => {
@@ -52,6 +63,13 @@ const loadEnvVariable = (): EnvVariables => {
     "SMTP_HOST",
     "SMTP_PORT",
     "SMTP_FROM",
+    "CLOUDINARY_CLOUD_NAME",
+    "CLOUDINARY_API_KEY",
+    "CLOUDINARY_API_SECRET",
+    "REDIS_HOST",
+    "REDIS_PORT",
+    "REDIS_USERNAME",
+    "REDIS_PASSWORD",
   ];
 
   requiredEnvVariables.forEach((key) => {
@@ -61,16 +79,23 @@ const loadEnvVariable = (): EnvVariables => {
   });
 
   return {
+    // ! database and server
     DATABASE_URL: process.env.DATABASE_URL as string,
     PORT: process.env.PORT as string,
+    // user default credentials
     NODE_ENV: process.env.NODE_ENV as string,
-
     USER_EMAIL: process.env.USER_EMAIL as string,
     USER_PASSWORD: process.env.USER_PASSWORD as string,
     USER_FIRST_NAME: process.env.USER_FIRST_NAME as string,
     USER_LAST_NAME: process.env.USER_LAST_NAME as string,
-    BCRYPT_SALT_ROUNDS: process.env.BCRYPT_SALT_ROUNDS as string,
+
+    // ! frontend url
     FRONTEND_URL: process.env.FRONTEND_URL as string,
+
+    // ! security
+    BCRYPT_SALT_ROUNDS: process.env.BCRYPT_SALT_ROUNDS as string,
+
+    // ! JWT related variables
     JWT: {
       ACCESS_TOKEN_JWT_SECRET: process.env.ACCESS_TOKEN_JWT_SECRET as string,
       ACCESS_TOKEN_JWT_EXPIRATION: process.env.ACCESS_TOKEN_JWT_EXPIRATION as string,
@@ -80,12 +105,28 @@ const loadEnvVariable = (): EnvVariables => {
       FORGET_PASSWORD_TOKEN_JWT_EXPIRATION: process.env.FORGET_PASSWORD_TOKEN_JWT_EXPIRATION as string,
     },
 
+    // ! SMTP (email) related variables
     SMTP: {
       USER: process.env.SMTP_USER as string,
       PASS: process.env.SMTP_PASS as string,
       HOST: process.env.SMTP_HOST as string,
       PORT: process.env.SMTP_PORT as string,
       FROM: process.env.SMTP_FROM as string,
+    },
+
+    // ! cloudinary related variables
+    CLOUDINARY: {
+      CLOUDINARY_CLOUD_NAME: process.env.CLOUDINARY_CLOUD_NAME as string,
+      CLOUDINARY_API_KEY: process.env.CLOUDINARY_API_KEY as string,
+      CLOUDINARY_API_SECRET: process.env.CLOUDINARY_API_SECRET as string,
+    },
+
+    // ! Redis related variables
+    REDIS: {
+      HOST: process.env.REDIS_HOST as string,
+      PORT: process.env.REDIS_PORT as string,
+      USERNAME: process.env.REDIS_USERNAME as string,
+      PASSWORD: process.env.REDIS_PASSWORD as string,
     },
   };
 };

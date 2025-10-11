@@ -8,17 +8,23 @@ import { handleValidationError } from "../../errors/handleValidationError";
 import { handleZodError } from "../../errors/handleZodError";
 import type { TErrorSources } from "../../interfaces/error.types";
 import envVariables from "../../config/env";
+import logger from "../utils/chalk";
 
 // Re-export ApiError for convenience
 export { default as ApiError } from "../../errors/ApiError";
 
 const globalErrorHandler = (
   error: Error & { statusCode?: number; name?: string },
-  req: Request,
+  _req: Request,
   res: Response,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   _next: NextFunction
 ) => {
+  if (envVariables.NODE_ENV === "development") {
+    // eslint-disable-next-line no-restricted-syntax
+    logger.error("Global Error Handler:", error);
+  }
+
   let statusCode: number = StatusCodes.INTERNAL_SERVER_ERROR;
   let message = error.message || "Something went wrong!";
   let errorSources: TErrorSources[] = [];

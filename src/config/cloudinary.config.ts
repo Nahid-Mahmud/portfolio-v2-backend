@@ -136,7 +136,7 @@ export const uploadFileToCloudinary = async (file: Express.Multer.File, folder: 
           {
             resource_type: resourceType,
             public_id: `${folder}/${uniqueFileName}`,
-            folder: `zanix/${folder}`,
+            folder: `portfolio/${folder}`,
           },
           (error, result) => {
             if (error) {

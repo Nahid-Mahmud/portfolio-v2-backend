@@ -10,6 +10,7 @@ const router = Router();
 // update user profile
 router.put(
   "/profile",
+  // small logging middleware that forwards to next()
   checkAuth(),
   multerUpload.single("photo"),
   validateRequest(updateUserZodSchema),

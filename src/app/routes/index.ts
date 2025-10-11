@@ -1,6 +1,8 @@
 import { Router } from "express";
 import { userRoutes } from "../modules/user/user.route";
 import { authRoutes } from "../modules/auth/auth.route";
+import { projectRoutes } from "../modules/projects/route.project";
+import { blogCategoryRoutes } from "../modules/blog-category/blog.category.route";
 
 export const router = Router();
 
@@ -17,6 +19,14 @@ const moduleRoutes: IModuleRoute[] = [
   {
     path: "/auth",
     route: authRoutes,
+  },
+  {
+    path: "/projects",
+    route: projectRoutes,
+  },
+  {
+    path: "/blog-categories",
+    route: blogCategoryRoutes,
   },
 ];
 

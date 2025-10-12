@@ -6,7 +6,7 @@ import envVariables from "../../config/env";
 
 export const checkAuth = () => async (req: Request, _res: Response, next: NextFunction) => {
   try {
-    const accessToken = req.headers.authorization || req.cookies.accessToken;
+    const accessToken = req.cookies.accessToken;
     if (!accessToken) {
       throw new AppError(StatusCodes.UNAUTHORIZED, "Access token is required");
     }

@@ -8,17 +8,19 @@ import notFound from "./app/middlewares/notFound";
 import { router } from "./app/routes";
 
 export const app: Application = express();
+app.use(cookieParser());
 
 const corsOptions: CorsOptions = {
-  origin: "*",
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"],
-  credentials: true,
+  origin: ["http://localhost:3000", "http://127.0.0.1:3000"], // Add both localhost variations
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
+  allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
+  credentials: true, // This is crucial for cookies
+  optionsSuccessStatus: 200, // For legacy browser support
 };
 
 app.use(cors(corsOptions));
 app.use(express.json());
-app.use(cookieParser());
+
 app.use(
   expressSession({
     secret: process.env.SESSION_SECRET || "default_secret",

@@ -182,8 +182,8 @@ const globalErrorHandler = (
     success: false,
     message,
     errorSources,
+    error: error,
     ...(envVariables.NODE_ENV !== "production" && {
-      error: error,
       stack: error?.stack,
     }),
   });

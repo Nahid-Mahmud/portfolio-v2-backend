@@ -1,6 +1,6 @@
-import { Prisma, Blog } from "@prisma/client";
-import { prisma } from "../../../config/db";
+import { Blog, Prisma } from "@prisma/client";
 import { deleteFileFormCloudinary } from "../../../config/cloudinary.config";
+import { prisma } from "../../../config/db";
 import { createSlug } from "../../utils/createSlug";
 
 // * create blog
@@ -18,19 +18,17 @@ const createBlog = async (payload: Prisma.BlogCreateInput): Promise<Blog> => {
 };
 
 // * get all blogs
-const getAllBlogs = async (): Promise<Blog[]> => {
+const getAllBlogs = async (): Promise<Partial<Blog>[]> => {
   const result = await prisma.blog.findMany({
-    include: {
-      author: {
-        select: {
-          id: true,
-          firstName: true,
-          lastName: true,
-          photo: true,
-          altText: true,
-        },
-      },
-      category: true,
+    select: {
+      id: true,
+      title: true,
+      description: true,
+      photo: true,
+      altText: true,
+      slug: true,
+      categoryId: true,
+      createdAt: true,
     },
     orderBy: {
       createdAt: "desc",
@@ -66,11 +64,12 @@ const updateBlog = async (
   id: string,
   payload: Partial<Prisma.BlogUpdateInput> & { deletePhoto?: string }
 ): Promise<Blog> => {
-  let updateData = payload;
+  const { deletePhoto, ...rest } = payload;
+  let updateData = { ...rest };
 
   if (payload.title) {
     const slug = createSlug(payload.title as string);
-    updateData = { ...payload, slug };
+    updateData = { ...rest, slug };
   }
 
   const result = await prisma.blog.update({
@@ -93,8 +92,9 @@ const updateBlog = async (
     },
   });
 
-  if (payload.deletePhoto) {
-    await deleteFileFormCloudinary(payload.deletePhoto);
+  // logger.error(deletePhoto);
+  if (deletePhoto) {
+    await deleteFileFormCloudinary(deletePhoto);
   }
 
   return result;

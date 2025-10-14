@@ -6,11 +6,14 @@ import { createBlogCategoryZodSchema, updateBlogCategoryZodSchema } from "./blog
 
 const router = express.Router();
 
+// POST endpoint for creating new blog category
+router.post("/", checkAuth(), validateRequest(createBlogCategoryZodSchema), blogCategoryController.createBlogCategory);
+
+// GET endpoints
 router.get("/", blogCategoryController.getAllBlogCategories);
 router.get("/:id", blogCategoryController.getBlogCategoryById);
 
-router.post("/", checkAuth(), validateRequest(createBlogCategoryZodSchema), blogCategoryController.createBlogCategory);
-
+// PATCH endpoint for updating blog category
 router.patch(
   "/:id",
   checkAuth(),
@@ -18,6 +21,7 @@ router.patch(
   blogCategoryController.updateBlogCategory
 );
 
+// DELETE endpoint for removing blog category
 router.delete("/:id", checkAuth(), blogCategoryController.deleteBlogCategory);
 
 export const blogCategoryRoutes = router;

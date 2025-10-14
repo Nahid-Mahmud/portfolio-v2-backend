@@ -6,6 +6,7 @@ import { createSlug } from "../../utils/createSlug";
 // * create blog
 const createBlog = async (payload: Prisma.BlogCreateInput): Promise<Blog> => {
   const slug = createSlug(payload.title);
+  // console.log(payload);
   const result = await prisma.blog.create({
     data: { ...payload, slug },
     include: {

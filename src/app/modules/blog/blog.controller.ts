@@ -3,10 +3,17 @@ import { catchAsync } from "../../utils/catchAsync";
 import { blogService } from "./blog.service";
 import sendResponse from "../../utils/sendResponse";
 import { handleSingleFileUpload } from "../../utils/handleFileUpload";
+import AppError from "../../../errors/AppError";
 
 // * create blog
 const createBlog = catchAsync(async (req: Request, res: Response) => {
   let photo;
+
+  // file is required for creating a blog
+  if (!req.file) {
+    throw new AppError(400, "Photo is required");
+  }
+
   if (req.file) {
     photo = await handleSingleFileUpload(req.file, "blog");
   }

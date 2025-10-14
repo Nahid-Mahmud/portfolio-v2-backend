@@ -45,19 +45,20 @@ model BlogCategory {
 }
 
 model Blog {
-  id         String       @id @default(uuid())
-  title      String
-  content    String       @db.Text
-  photo      String
-  altText    String
-  slug       String
-  authorId   String
-  author     User         @relation(fields: [authorId], references: [id])
-  categoryId String
-  category   BlogCategory @relation(fields: [categoryId], references: [id])
-  tags       String[]
-  createdAt  DateTime     @default(now())
-  updatedAt  DateTime     @updatedAt
+  id          String       @id @default(uuid())
+  title       String
+  content     String       @db.Text
+  description String       @db.Text
+  photo       String
+  altText     String
+  slug        String
+  authorId    String
+  author      User         @relation(fields: [authorId], references: [id])
+  categoryId  String
+  category    BlogCategory @relation(fields: [categoryId], references: [id])
+  tags        String[]
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
 
   @@map("blogs")
 }

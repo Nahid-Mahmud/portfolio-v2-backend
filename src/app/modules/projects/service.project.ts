@@ -11,10 +11,24 @@ const createProject = async (payload: Prisma.ProjectsCreateInput): Promise<Proje
 };
 
 // * get all projects
-const getAllProjects = async (): Promise<Projects[]> => {
+const getAllProjects = async (): Promise<Partial<Projects>[]> => {
   const result = await prisma.projects.findMany({
     orderBy: {
       createdAt: "desc",
+    },
+    select: {
+      id: true,
+      title: true,
+      shortDescription: true,
+      liveLink: true,
+      frontendLink: true,
+      backendLink: true,
+      photo: true,
+      altText: true,
+      category: true,
+      technologies: true,
+      createdAt: true,
+      updatedAt: true,
     },
   });
   return result;
@@ -35,15 +49,17 @@ const updateProject = async (
   id: string,
   payload: Partial<Prisma.ProjectsUpdateInput> & { deletePhoto?: string }
 ): Promise<Projects> => {
+  const { deletePhoto, ...rest } = payload;
+
   const result = await prisma.projects.update({
     where: {
       id,
     },
-    data: payload,
+    data: rest,
   });
 
-  if (payload.deletePhoto) {
-    await deleteFileFormCloudinary(payload.deletePhoto);
+  if (deletePhoto) {
+    await deleteFileFormCloudinary(deletePhoto);
   }
 
   return result;

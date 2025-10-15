@@ -7,7 +7,7 @@ const createProjectZodSchema = z.object({
   liveLink: z.string().url("Invalid live link URL"),
   frontendLink: z.string().url("Invalid frontend link URL"),
   backendLink: z.string().url("Invalid backend link URL").optional(),
-  photo: z.string().min(1, "Photo is required"),
+  photo: z.string().min(1, "Photo is required").optional(),
   altText: z.string().min(1, "Alt text is required"),
   video: z.string().url("Invalid video URL").optional(),
   category: z.enum(["FullStack", "Frontend"]),

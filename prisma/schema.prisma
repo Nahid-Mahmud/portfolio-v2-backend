@@ -24,7 +24,7 @@ model User {
   firstName String
   lastName  String
   photo     String?
-  altText   String?
+  altText   String? @default("Md. Nahid Mahmud Photo")
   password  String
   bio       String?  @db.Text
   Blog      Blog[]

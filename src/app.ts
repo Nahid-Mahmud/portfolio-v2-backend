@@ -11,7 +11,7 @@ export const app: Application = express();
 app.use(cookieParser());
 
 const corsOptions: CorsOptions = {
-  origin: ["http://localhost:3000", "http://127.0.0.1:3000"], // Add both localhost variations
+  origin: ["http://localhost:3000", "http://127.0.0.1:3000","https://nahid-mahmud.xyz"], // Add both localhost variations
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
   allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
   credentials: true, // This is crucial for cookies

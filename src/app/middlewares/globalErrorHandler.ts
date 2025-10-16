@@ -23,6 +23,7 @@ const globalErrorHandler = (
   if (envVariables.NODE_ENV === "development") {
     // eslint-disable-next-line no-restricted-syntax
     logger.error("Global Error Handler:", error);
+    // console.log(error);
   }
 
   let statusCode: number = StatusCodes.INTERNAL_SERVER_ERROR;

@@ -10,13 +10,14 @@ const router = Router();
 // update user profile
 router.put(
   "/profile",
-  // small logging middleware that forwards to next()
+  // Ensure multer processes the request before JSON parsing middleware
   checkAuth(),
-  multerUpload.single("photo"),
-  validateRequest(updateUserZodSchema),
+  multerUpload.single("photo"), // Handles multipart/form-data
+  // Re-enable validateRequest middleware and ensure proper handling of multipart/form-data
+  validateRequest(updateUserZodSchema), // Validate req.body fields like bio
   userController.updateProfile
 );
 
-router.get("/profile", checkAuth(), userController.getProfile);
+router.get("/me", checkAuth(), userController.getProfile);
 
 export const userRoutes = router;

@@ -19,6 +19,9 @@ const updateProfile = async (payload: Partial<User> & { deletePhoto?: string }, 
 };
 
 const getProfile = async (id: string) => {
+  if (!id) {
+    throw new AppError(StatusCodes.BAD_REQUEST, "Invalid user ID");
+  }
   const user = await prisma.user.findUnique({
     where: { id },
   });

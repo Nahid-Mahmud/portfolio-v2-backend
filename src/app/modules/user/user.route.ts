@@ -17,4 +17,6 @@ router.put(
   userController.updateProfile
 );
 
+router.get("/profile", checkAuth(), userController.getProfile);
+
 export const userRoutes = router;

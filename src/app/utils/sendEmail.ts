@@ -56,7 +56,7 @@ const sendEmail = async (to: string, subject: string, text: string, resetLink?: 
         <hr style="border: none; border-top: 1px solid #ddd; margin: 30px 0;">
         
         <p style="font-size: 12px; color: #888;">
-          This link will expire in 1 hour. If you didn't request this password reset, please ignore this email.
+          This link will expire in 10 min. If you didn't request this password reset, please ignore this email.
         </p>
       </div>
     </body>

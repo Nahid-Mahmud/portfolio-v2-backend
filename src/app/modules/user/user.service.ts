@@ -1,8 +1,8 @@
 import { User } from "@prisma/client";
-import { prisma } from "../../../config/db";
-import { deleteFileFormCloudinary } from "../../../config/cloudinary.config";
-import AppError from "../../../errors/AppError";
 import { StatusCodes } from "http-status-codes";
+import { deleteFileFormCloudinary } from "../../../config/cloudinary.config";
+import { prisma } from "../../../config/db";
+import AppError from "../../../errors/AppError";
 
 const updateProfile = async (payload: Partial<User> & { deletePhoto?: string }, id: string) => {
   const { deletePhoto, ...rest } = payload;

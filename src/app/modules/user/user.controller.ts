@@ -8,13 +8,13 @@ import { handleSingleFileUpload } from "../../utils/handleFileUpload";
 const updateProfile = catchAsync(async (req: Request, res: Response, _next: NextFunction) => {
   const { id } = req.user;
   const payload = req.body;
-  let photo = "";
 
   if (req.file) {
-    photo = await handleSingleFileUpload(req.file, "profile");
+    const photo = await handleSingleFileUpload(req.file, "profile");
+    payload.photo = photo;
   }
 
-  const result = await userService.updateProfile({ ...payload, photo }, id);
+  const result = await userService.updateProfile(payload, id);
   sendResponse(res, {
     success: true,
     message: "User profile updated successfully",

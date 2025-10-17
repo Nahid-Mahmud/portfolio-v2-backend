@@ -4,6 +4,7 @@ import { authRoutes } from "../modules/auth/auth.route";
 import { projectRoutes } from "../modules/projects/route.project";
 import { blogCategoryRoutes } from "../modules/blog-category/blog.category.route";
 import { blogRoutes } from "../modules/blog/blog.route";
+import { statsRoutes } from "../modules/stats/stats.route";
 
 export const router = Router();
 
@@ -32,6 +33,10 @@ const moduleRoutes: IModuleRoute[] = [
   {
     path: "/blogs",
     route: blogRoutes,
+  },
+  {
+    path: "/stats",
+    route: statsRoutes,
   },
 ];
 
